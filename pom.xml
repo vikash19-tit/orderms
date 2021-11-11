@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.infy</groupId>
-	<artifactId>Demo01_SpringREST_ExceptionHandling</artifactId>
+	<artifactId>OrderMS</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Demo01_SpringREST_ExceptionHandling</name>
+	<name>OrderMS</name>
 	<description>Demo project for RESTFul service using spring boot
 	</description>
 
