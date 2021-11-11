@@ -2,8 +2,8 @@ package com.infy.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.infy.entity.ProductsOrdered;
+import com.infy.entity.Productsordered;
 
-public interface ProductsOrderedRepository extends CrudRepository<ProductsOrdered, String> {
+public interface ProductsOrderedRepository extends CrudRepository<Productsordered, String> {
 
 }

@@ -1,6 +1,5 @@
 package com.infy.service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -13,25 +12,19 @@ import com.infy.exception.OrderException;
 import com.infy.repository.OrderRepository;
 import com.infy.repository.ProductsOrderedRepository;
 import com.infy.dto.OrderDTO;
-import com.infy.dto.ProductsOrderedDTO;
+import com.infy.dto.ProductsorderedDTO;
 import com.infy.entity.Order;
-import com.infy.entity.ProductsOrdered;
+import com.infy.entity.Productsordered;
 
 @Service(value = "orderService")
 @Transactional
 public class OrderServiceImpl implements OrderService {
-   
-	//used to create order id adding after order "O" + index = O1, O2, O3 ...
-		private static int index;
+
 	@Autowired
 	private OrderRepository orderRepository;
 	@Autowired
 	private ProductsOrderedRepository proRepository;
-    
-	static {
-		 index = 100;
-	}
-	// view all orders
+
 	@Override
 	public String addOrder(OrderDTO orderDTO) throws OrderException {
 		Order o1= new Order();
@@ -44,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
 		Order o2=orderRepository.save(o1);
 		return o2.getOrderId();
 	}
-// view orders for the orderID
+
 	@Override
 	public OrderDTO viewOrder(String orderId) throws OrderException {
 		Optional<Order> optional = orderRepository.findById(orderId);
@@ -56,10 +49,10 @@ public class OrderServiceImpl implements OrderService {
 		o1.setAmount(order.getAmount());
 		o1.setDate(order.getDate());
 		o1.setStatus(order.getStatus());
-		Iterable<ProductsOrdered> pos = proRepository.findAll();
-		List<ProductsOrderedDTO> pDTOs = new ArrayList<>();
+		Iterable<Productsordered> pos = proRepository.findAll();
+		List<ProductsorderedDTO> pDTOs = new ArrayList<>();
 		pos.forEach(po -> {
-			ProductsOrderedDTO po1=new ProductsOrderedDTO();
+			ProductsorderedDTO po1=new ProductsorderedDTO();
 			po1.setBuyerId(po.getBuyerId());
 			po1.setProdId(po.getProdId());
 			po1.setSellerId(po.getSellerId());
@@ -86,10 +79,10 @@ public class OrderServiceImpl implements OrderService {
 			o1.setDate(order.getDate());
 			o1.setStatus(order.getStatus());
 			orderDTOs.add(o1);
-			Iterable<ProductsOrdered> pos = proRepository.findAll();
-			List<ProductsOrderedDTO> pDTOs = new ArrayList<>();
+			Iterable<Productsordered> pos = proRepository.findAll();
+			List<ProductsorderedDTO> pDTOs = new ArrayList<>();
 			pos.forEach(po -> {
-				ProductsOrderedDTO po1=new ProductsOrderedDTO();
+				ProductsorderedDTO po1=new ProductsorderedDTO();
 				po1.setBuyerId(po.getBuyerId());
 				po1.setProdId(po.getProdId());
 				po1.setSellerId(po.getSellerId());
@@ -104,23 +97,6 @@ public class OrderServiceImpl implements OrderService {
 		if (orderDTOs.isEmpty())
 			throw new OrderException("Service.ORDERS_NOT_FOUND");
 		return orderDTOs;
-	}//method to re-order 
-	@Override
-	public String reOrder(String buyerId, String orderId) throws OrderException {
-		Optional<Order> optional = orderRepository.findById(orderId);
-		Order order = optional.orElseThrow(()->new OrderException("Order does not exist for the given buyer"));
-		Order reorder = new Order();
-		String id = "O" + index++;
-		reorder.setOrderId(id);
-		reorder.setBuyerId(order.getBuyerId());
-		reorder.setAmount(order.getAmount());
-		reorder.setAddress(order.getAddress());
-		reorder.setDate(LocalDate.now());
-		reorder.setStatus(order.getStatus());
-		
-		orderRepository.save(reorder);		
-		return reorder.getOrderId();
 	}
-	
 
 }

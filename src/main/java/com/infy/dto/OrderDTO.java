@@ -11,11 +11,11 @@ public class OrderDTO {
 	private LocalDate date;
 	private String address;
 	private String status;
-	private List<ProductsOrderedDTO> productsOrdered;
-	public List<ProductsOrderedDTO> getProductsOrdered() {
+	private List<ProductsorderedDTO> productsOrdered;
+	public List<ProductsorderedDTO> getProductsOrdered() {
 		return productsOrdered;
 	}
-	public void setProductsOrdered(List<ProductsOrderedDTO> productsOrdered) {
+	public void setProductsOrdered(List<ProductsorderedDTO> productsOrdered) {
 		this.productsOrdered = productsOrdered;
 	}
 	public String getOrderId() {

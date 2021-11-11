@@ -26,7 +26,7 @@ public class Order {
 		return orderId;
 	}
 	public void setOrderId(String orderId) {
-		 this.orderId = orderId;
+		this.orderId = orderId;
 	}
 	public String getBuyerId() {
 		return buyerId;
